@@ -9,6 +9,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
+    "build:prod" : "webpack --node-env=production",
     "test": "echo \"Error: no test specified\""
   },
   "dependencies": {
