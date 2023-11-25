@@ -184,6 +184,7 @@ const Account = () => {
               <InputLabel htmlFor="notification-switch" >Allow notification</InputLabel>
                 <Switch id='notification-switch' {...label} color="secondary"
                   checked={isNotificationEnabled}
+                  disabled={isNotificationEnabled}
                   onChange={() => setIsNotificationEnabled(notificationPermissionHandler)} />
               </Grid>
             </Grid>

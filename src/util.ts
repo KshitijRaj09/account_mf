@@ -18,6 +18,7 @@ export const clearUserInfoFromStorage = () => sessionStorage.removeItem("userInf
 export const notificationPermissionHandler = () => {
   console.log('called notification enabled function');
   if (!("Notification" in window)) {
+    alert('Notification does not supported in the browser!!!')
     return false;
   }
   else if (Notification.permission === 'denied') {
