@@ -10,4 +10,5 @@ export declare const clearAccessToken: () => void;
 export declare const setUserInfoInStorage: (userInfo: UserInfoType) => void;
 export declare const getUserInfoFromStorage: () => string;
 export declare const clearUserInfoFromStorage: () => void;
+export declare const notificationPermissionHandler: () => boolean;
 export {};
