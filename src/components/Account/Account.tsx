@@ -1,8 +1,9 @@
-import {Box, Button, Grid, TextField, Typography} from "@mui/material";
-import React, {useState} from "react";
+import {Box, Button, Grid, InputLabel, Switch, TextField, Typography} from "@mui/material";
+import React, {useState, useEffect} from "react";
 import {useForm, SubmitHandler, Controller} from "react-hook-form";
 import {getUserDetailsApi} from "../../apis/getUserDetailsAPI";
 import {updateUserDetailsApi} from "../../apis/updateUserDetailsAPI";
+import { notificationPermissionHandler } from "../../util";
 
 type FormInputs = {
   username: string;
@@ -24,6 +25,7 @@ type errorResponseType = {
   username: string;
   email: string;
 };
+const label = { inputProps: { 'aria-label': 'Color switch demo' } };
 
 const Account = () => {
   const classes = styles();
@@ -31,6 +33,7 @@ const Account = () => {
     username: "",
     email: "",
   });
+  const [isNotificationEnabled, setIsNotificationEnabled] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -40,6 +43,14 @@ const Account = () => {
   } = useForm<FormInputs>({
     defaultValues: async () => await getUserDetailsApi(),
   });
+
+  useEffect(() => {
+    if (Notification.permission === 'granted') {
+      setIsNotificationEnabled(true);
+      return;
+    }
+    setIsNotificationEnabled(false);
+  },[])
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     const response = await updateUserDetailsApi(data);
@@ -159,15 +170,21 @@ const Account = () => {
                   )}
                 />
               </Grid>
-              <Grid item mobile={2}>
+              <Grid item mobile={5} alignSelf='end'>
                 <Button
                   type='submit'
                   id='saveButton'
                   sx={classes.saveButton}
-                  fullWidth
+                  style={{minWidth:'50%'}}
                   disabled={!isDirty}>
                   Save
                 </Button>
+              </Grid>
+              <Grid item mobile={5}>
+              <InputLabel htmlFor="notification-switch" >Allow notification</InputLabel>
+                <Switch id='notification-switch' {...label} color="secondary"
+                  checked={isNotificationEnabled}
+                  onChange={() => setIsNotificationEnabled(notificationPermissionHandler)} />
               </Grid>
             </Grid>
           </Box>
