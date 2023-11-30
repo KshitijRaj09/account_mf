@@ -19,8 +19,8 @@ const Main = () => {
       return (
         <Loader />
       );
-    }
-
+   }
+    
    return (
       <ThemeProvider theme={theme}>
          <Account />

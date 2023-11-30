@@ -1,5 +1,5 @@
 import {Box, Button, Grid, InputLabel, Switch, TextField, Typography} from "@mui/material";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, memo} from "react";
 import {useForm, SubmitHandler, Controller} from "react-hook-form";
 import {getUserDetailsApi} from "../../apis/getUserDetailsAPI";
 import {updateUserDetailsApi} from "../../apis/updateUserDetailsAPI";
@@ -195,4 +195,5 @@ const Account = () => {
   );
 };
 
-export default Account;
+const memoziedAccount = memo(Account)
+export default memoziedAccount;
